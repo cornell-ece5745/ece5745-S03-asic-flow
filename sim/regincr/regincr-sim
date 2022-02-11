@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 #=========================================================================
-# regincr-sim <input-values>
+# regincr-sim <input-pattern>
 #=========================================================================
 
 import os
 import sys
+import random
 
 from pymtl3 import *
 from pymtl3.passes.backends.verilog import *
@@ -20,9 +21,15 @@ while sim_dir:
 
 from regincr.RegIncrNstageRTL import RegIncrNstageRTL
 
-# Get list of input values from command line
+# Choose input pattern
 
-input_values = [ int(x,0) for x in sys.argv[1:] ]
+pattern = sys.argv[1]
+
+input_values = []
+if pattern == "random":
+  input_values = [ random.randint(0,255) for _ in range(0,100) ]
+elif pattern == "zeros":
+  input_values = [ 0 for _ in range(0,100) ]
 
 # Add some zero values to end of list of input values
 
@@ -37,11 +44,14 @@ model.elaborate()
 
 model.set_metadata( VerilogTranslationImportPass.enable, True )
 
-# Apply the default pass group
+# Apply the pass groups
 
 model.apply( VerilogPlaceholderPass() )
 model = VerilogTranslationImportPass()( model )
-model.apply( DefaultPassGroup(textwave=True) )
+
+model.set_metadata( VerilogTBGenPass.case_name, pattern )
+model.apply( VerilogTBGenPass() )
+model.apply( DefaultPassGroup(linetrace=True) )
 
 # Reset simulator
 
@@ -62,8 +72,4 @@ for input_value in input_values:
   # Tick simulator one cycle
 
   model.sim_tick()
-
-# Display text waveform
-
-model.print_textwave()
 

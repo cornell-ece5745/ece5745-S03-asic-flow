@@ -28,7 +28,7 @@ def construct():
     'sim_path'        : "{}/../../sim".format(this_dir),
     'design_path'     : "{}/../../sim/regincr".format(this_dir),
     'design_name'     : 'RegIncr4stageRTL',
-    'clock_period'    : 1.0,
+    'clock_period'    : 0.5,
     'clk_port'        : 'clk',
     'reset_port'      : 'reset',
     'adk'             : adk_name,
@@ -36,7 +36,7 @@ def construct():
     'pad_ring'        : False,
 
     # Gather
-    'test_filter'     : 'RegIncrNstageRTL', # used because we rename our design
+    'test_filter'     : 'RegIncrNstageRTL',
 
     # VCS-sim
     'test_design_name': 'RegIncr4stageRTL',
@@ -52,7 +52,7 @@ def construct():
     'setup_slack'     : 0.035,
 
     # PT Power
-    'saif_instance'   : 'RegIncr4stage_tb/DUT',
+    'saif_instance'   : 'RegIncr4stageRTL_tb/DUT',
   }
 
   #-----------------------------------------------------------------------
