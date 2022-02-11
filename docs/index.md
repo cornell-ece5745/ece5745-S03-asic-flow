@@ -553,3 +553,8 @@ tests. Here is how to do a clean build from scratch:
     % mflowgen run --design ../regincr-4stage
     % make
 
+And don't forget you can always check out the final layout too!
+
+    % cd $TOPDIR/asic/build
+    % klayout -l $ECE5745_STDCELLS/klayout.lyp 10-brg-cadence-innovus-signoff/outputs/design.gds
+
