@@ -530,7 +530,7 @@ We can see that very little power is consumed in the adders (since the
 data wires are not toggling). Almost all of the power is likely consumed
 in the clock network.
 
-Evaluating Energy
+Summary
 --------------------------------------------------------------------------
 
 There is a `brg-flow-summary` step that will display a summer of the
